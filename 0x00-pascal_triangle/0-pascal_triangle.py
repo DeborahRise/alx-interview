@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" pascal Triangle """
+
 
 def pascal_triangle(n):
     if n <= 0:
@@ -21,5 +23,3 @@ def pascal_triangle(n):
 
     return triangle
 
-# Example usage:
-pascal_triangle(5)
