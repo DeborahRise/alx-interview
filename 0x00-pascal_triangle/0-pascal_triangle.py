@@ -16,8 +16,8 @@ def pascal_triangle(n):
             row.append(1)
             triangle.append(row)
     
-    for row in triangle:
-        print(row)
+    # for row in triangle:
+    #     print(row)
 
     return triangle
 
