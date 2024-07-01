@@ -21,5 +21,3 @@ def pascal_triangle(n):
 
     return triangle
 
-# Example usage:
-pascal_triangle(5)
