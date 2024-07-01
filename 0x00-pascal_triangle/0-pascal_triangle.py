@@ -22,3 +22,6 @@ def pascal_triangle(n):
         print(row)
 
     return triangle
+
+
+pascal_triangle(5)
