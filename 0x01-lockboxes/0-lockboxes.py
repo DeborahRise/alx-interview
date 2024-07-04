@@ -25,7 +25,6 @@ def canUnlockAll(boxes):
     for box in boxes:
         for b in box:
             box_keys.add(b)
-    print(box_keys)
     for n in range(1, number_of_boxes):
         if n not in box_keys:
             return False
