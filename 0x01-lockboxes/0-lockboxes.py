@@ -18,12 +18,14 @@ Write a method that can determine if all boxes can be opened
     meaning, box at index 3 contains keys that can open box at index 2, 12, 9
 """
 
+
 def canUnlockAll(boxes):
     number_of_boxes = len(boxes)
     box_keys = set()
     for box in boxes:
         for b in box:
             box_keys.add(b)
+    print(box_keys)
     for n in range(1, number_of_boxes):
         if n not in box_keys:
             return False
