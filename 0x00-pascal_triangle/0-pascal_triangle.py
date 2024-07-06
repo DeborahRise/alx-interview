@@ -6,7 +6,7 @@ def pascal_triangle(n):
     """ pascal Triangle """
 
     if n <= 0:
-        return [[]]
+        return []
 
     pascal_triangler = [[1]]
     for i in range(1, n):
