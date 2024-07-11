@@ -8,5 +8,5 @@ minOperations = __import__('0-minoperations').minOperations
 n = 4
 print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
 
-n = 14
+n = 1
 print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))

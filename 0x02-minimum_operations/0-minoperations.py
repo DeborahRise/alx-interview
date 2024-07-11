@@ -67,7 +67,12 @@ after an operation,
 
 
 def minOperations(n):
-    if not isinstance(n, int):
+    """
+    from the pattern above, we noticed that if the current length of characters
+    can divide n without a reminder, then you can 'copyall and paste'
+    else just paste
+    """
+    if not isinstance(n, int) or n < 1:
         return 0
     file = 'h'
     loc = len(file)
