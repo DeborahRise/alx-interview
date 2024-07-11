@@ -72,9 +72,9 @@ def minOperations(n):
     can divide n without a reminder, then you can 'copyall and paste'
     else just paste
     """
-    if not isinstance(n, int) or n < 1:
+    if not isinstance(n, int):
         return 0
-    file = 'h'
+    file = 'H'
     loc = len(file)
     counter = 0
     copy_all = ''
