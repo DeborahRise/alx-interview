@@ -1,45 +1,44 @@
 #!/usr/bin/python3
-""" A script that, reads the stdin, checks the correct input format and
-generates a given metrics"""
+""" the log parsing task"""
 
 import sys
 import re
 from collections import defaultdict
 
-""" Initialize important variables"""
+"""Compile the regex pattern to match the log format"""
+pattern = re.compile(r'(\d+\.\d+\.\d+\.\d+) - \[.+?\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)')
+
+"""Initialize variables"""
 total_size = 0
+status_counts = defaultdict(int)
 line_count = 0
-statuscode_count = defaultdict(int)
 
-""" First step: compile the regular expression pattern into an object"""
-
-valid_input = re.compile(r'(\d+\.\d+\.\d+\.\d+\)\-\[.+?\] \\"GET /projects/260 HTTP/1.1\\" (\d+) (\d+)')
-
-"""The function to print the metrics"""
-
-
+"""Define a function to print the metrics"""
 def print_metrics():
-    """ Establish the print format"""
-    print(f"file size: {total_size}")
-    for status in sorted(statuscode_count.keys()):
-        if statuscode_count[status] > 0:
-            print(f"{status}: {statuscode_count[status]}")
+    print(f"File size: {total_size}")
+    for status in sorted(status_counts.keys()):
+        if status_counts[status] > 0:
+            print(f"{status}: {status_counts[status]}")
 
-
-""" Compare the input with the approved regex """
+"""Read from standard input line by line"""
 try:
-    for file_input in sys.stdin:
-        matching = valid_input.match(file_input)
-        if matching:
-            statuscode = matching.group(2)
-            file_size = int(matching.group(3))
+    for line in sys.stdin:
+        match = pattern.match(line)
+        if match:
+            # Extract the status code and file size
+            status_code = match.group(2)
+            file_size = int(match.group(3))
+            # Update the total file size and status code count
             total_size += file_size
-            statuscode_count[statuscode] += 1
+            status_counts[status_code] += 1
         line_count += 1
+        # Print metrics every 10 lines
         if line_count % 10 == 0:
             print_metrics()
 except KeyboardInterrupt:
+    # Print final metrics if interrupted
     print_metrics()
     sys.exit()
 
+# Final print after reading all lines
 print_metrics()
