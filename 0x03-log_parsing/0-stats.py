@@ -13,7 +13,7 @@ statuscode_count = defaultdict(int)
 
 """ First step: compile the regular expression pattern into an object"""
 
-valid_input = re.compile(r'(\d+\.\d+\.\d+\.\d+\)\-\[.+?\] \\\"GET /projects/260 HTTP/1.1\\\" (\d+) (\d+)')
+valid_input = re.compile(r'(\d+\.\d+\.\d+\.\d+\)\-\[.+?\] \\"GET /projects/260 HTTP/1.1\\" (\d+) (\d+)')
 
 """The function to print the metrics"""
 
