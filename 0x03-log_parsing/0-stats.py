@@ -6,7 +6,13 @@ import re
 from collections import defaultdict
 
 """Compile the regex pattern to match the log format"""
-pattern = re.compile(r'(\d+\.\d+\.\d+\.\d+) - \[.+?\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)')
+pattern = re.compile(
+    r'(\d+\.\d+\.\d+\.\d+)'    # IP Address
+    r' - \[.+?\] '              # Date in square brackets
+    r'"GET /projects/260 HTTP/1.1" '
+    r'(\d+) '                   # Status code
+    r'(\d+)'                    # File size
+)
 
 """Initialize variables"""
 total_size = 0
@@ -22,12 +28,13 @@ def print_metrics():
         if status_counts[status] > 0:
             print(f"{status}: {status_counts[status]}")
 
+
 """Read from standard input line by line"""
 try:
     for line in sys.stdin:
         match = pattern.match(line)
         if match:
-            """# Extract the status code and file size"""
+            """Extract the status code and file size"""
             status_code = match.group(2)
             file_size = int(match.group(3))
             # Update the total file size and status code count
