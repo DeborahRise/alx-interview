@@ -14,6 +14,8 @@ status_counts = defaultdict(int)
 line_count = 0
 
 """Define a function to print the metrics"""
+
+
 def print_metrics():
     print(f"File size: {total_size}")
     for status in sorted(status_counts.keys()):
@@ -25,7 +27,7 @@ try:
     for line in sys.stdin:
         match = pattern.match(line)
         if match:
-            # Extract the status code and file size
+            """# Extract the status code and file size"""
             status_code = match.group(2)
             file_size = int(match.group(3))
             # Update the total file size and status code count
