@@ -1,23 +1,38 @@
 #!/usr/bin/node
 
 const request = require('request');
-
 const movieId = process.argv[2];
+const url = `https://swapi.dev/api/films/${movieId}/`;
 
-const url = `https://swapi-api.hbtn.io/api/films/${movieId}`;
+request(url, (error, response, body) => {
+  if (error) {
+    console.error(error);
+    return;
+  }
 
-request(url, async (err, res, body) => {
-  err && console.log(err);
+  try {
+    const film = JSON.parse(body);
+    const characters = film.characters;
 
-  const charactersArray = (JSON.parse(res.body).characters);
-  for (const character of charactersArray) {
-    await new Promise((resolve, reject) => {
-      request(character, (err, res, body) => {
-        err && console.log(err);
+    if (!Array.isArray(characters)) {
+      throw new Error('Characters data is not an array');
+    }
 
-        console.log(JSON.parse(body).name);
-        resolve();
+    characters.forEach((characterUrl) => {
+      request(characterUrl, (charError, charResponse, charBody) => {
+        if (charError) {
+          console.error(charError);
+        } else {
+          try {
+            const character = JSON.parse(charBody);
+            console.log(character.name);
+          } catch (parseError) {
+            console.error('Failed to parse character data:', parseError);
+          }
+        }
       });
     });
+  } catch (parseError) {
+    console.error('Failed to parse movie data:', parseError);
   }
 });
