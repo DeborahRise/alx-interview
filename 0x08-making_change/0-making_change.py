@@ -11,7 +11,7 @@ def makeChange(coins, total):
 
     if total <= 0:
         return 0
-    
+
     coins.sort(reverse=True)
     sum = 0
     i = 0
